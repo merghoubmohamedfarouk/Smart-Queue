@@ -1,0 +1,27 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  nom      String
+  email    String @unique
+  password String
+
+  @@map("admin")
+}
+
+model Ticket {
+  id             Int      @id @default(autoincrement())
+  numero         Int
+  statut         String   @default("EN_ATTENTE")
+  priorite       Int      @default(0)
+  heureCreation  DateTime @default(now())
+  heureAppel     DateTime?
+  heureFin       DateTime?
+}
